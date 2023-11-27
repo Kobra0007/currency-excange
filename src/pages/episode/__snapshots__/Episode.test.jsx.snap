@@ -1,0 +1,3 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Episode.jsx <Episode /> should render and match shapshot 1`] = `ShallowWrapper {}`;

@@ -1,0 +1,20 @@
+.l-container-episode {
+	display: grid;
+	width: 768px;
+	margin: 0 auto;
+}
+
+.c-info-episode {
+	display: grid;
+	grid-auto-flow: column;
+	grid-template-columns: minmax(max-content, 300px) 1fr;
+	margin-bottom: 20px;
+
+	& .c-image-episode {
+    margin: 0;
+    padding-right: 15px;
+	}
+	& .c-summary-episode > * {
+		margin: 0;
+	}
+}
