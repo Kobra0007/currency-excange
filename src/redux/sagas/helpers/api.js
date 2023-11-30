@@ -49,8 +49,8 @@ export const getLatestExchangeRate = async ({ fromId, toId }) =>
 export const getHistoricalExchangeRate = async ({
   dateFrom,
   dateTo,
-  fromId = 'USD',
-  toId,
+  fromId,
+  toId = 'USD',
 }) =>
   await makeApiCall(
     `${API.currencies.getHistoricalExchangeRate({
@@ -59,4 +59,9 @@ export const getHistoricalExchangeRate = async ({
       fromId,
       toId,
     })}`,
+  );
+
+export const getConversionRate = async ({ amount, fromId, toId = 'USD' }) =>
+  await makeApiCall(
+    `${API.currencies.getConversionRate({ amount, fromId, toId })}`,
   );

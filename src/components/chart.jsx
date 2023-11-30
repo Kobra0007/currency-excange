@@ -3,51 +3,7 @@ import * as am5 from "@amcharts/amcharts5";
 import * as am5xy from "@amcharts/amcharts5/xy";
 import am5themes_Animated from "@amcharts/amcharts5/themes/Animated";
 
-// const data = [{
-//   date: new Date(2021, 0, 1).getTime(),
-//   value: 100
-// }, {
-//   date: new Date(2021, 0, 2).getTime(),
-//   value: 320
-// }, {
-//   date: new Date(2021, 0, 3).getTime(),
-//   value: 270
-// }, {
-//   date: new Date(2021, 0, 4).getTime(),
-//   value: 150
-// }, {
-//   date: new Date(2021, 0, 5).getTime(),
-//   value: 156
-// }, {
-//   date: new Date(2021, 0, 6).getTime(),
-//   value: 199
-// }, {
-//   date: new Date(2021, 0, 7).getTime(),
-//   value: 114
-// }, {
-//   date: new Date(2021, 0, 8).getTime(),
-//   value: 320
-// }, {
-//   date: new Date(2021, 0, 9).getTime(),
-//   value: 90
-// }, {
-//   date: new Date(2021, 0, 10).getTime(),
-//   value: 300
-//   }, {
-//   date: new Date(2021, 0, 11).getTime(),
-//   value: 150
-// }, {
-//   date: new Date(2021, 0, 12).getTime(),
-//   value: 320
-// }, {
-//   date: new Date(2021, 0, 13).getTime(),
-//   value: 185
-// }, {
-//   date: new Date(2021, 0, 14).getTime(),
-//   value: 100
-// }]
-
-const Chart = () => {
+const Chart = ({ currencyRates, baseCurrency }) => {
   useEffect(() => {
     const root = am5.Root.new("chartdiv");
 
@@ -55,84 +11,92 @@ const Chart = () => {
       am5themes_Animated.new(root)
     ]);
 
-    let chart = root.container.children.push(
+    var chart = root.container.children.push(
       am5xy.XYChart.new(root, {
         panY: false,
-        layout: root.verticalLayout
+        wheelY: "zoomX",
+        layout: root.verticalLayout,
+        maxTooltipDistance: 0
       })
     );
 
-    // Define data
-    let data = [{
-      category: "Research",
-      value1: 1000,
-      value2: 588
-    }, {
-      category: "Marketing",
-      value1: 1200,
-      value2: 1800
-    }, {
-      category: "Sales",
-      value1: 850,
-      value2: 1230
-    }];
-
     // Create Y-axis
-    let yAxis = chart.yAxes.push(
+    const yAxis = chart.yAxes.push(
       am5xy.ValueAxis.new(root, {
+        extraTooltipPrecision: 1,
         renderer: am5xy.AxisRendererY.new(root, {})
       })
     );
 
     // Create X-Axis
-    let xAxis = chart.xAxes.push(
-      am5xy.CategoryAxis.new(root, {
-        renderer: am5xy.AxisRendererX.new(root, {}),
-        categoryField: "category"
+    const xAxis = chart.xAxes.push(
+      am5xy.DateAxis.new(root, {
+        baseInterval: { timeUnit: "day", count: 1 },
+        renderer: am5xy.AxisRendererX.new(root, {})
       })
     );
-    xAxis.data.setAll(data);
+
+    xAxis.get("dateFormats")["day"] = "MM/dd";
+    xAxis.get("periodChangeDateFormats")["day"] = "MMM";
 
     // Create series
-    let series1 = chart.series.push(
-      am5xy.ColumnSeries.new(root, {
-        name: "Series",
+    const series = chart.series.push(
+      am5xy.LineSeries.new(root, {
+        name: `Курс валюты ${baseCurrency}`,
         xAxis: xAxis,
         yAxis: yAxis,
-        valueYField: "value1",
-        categoryXField: "category"
+        valueYField: 'value',
+        valueXField: "date",
+        tooltip: am5.Tooltip.new(root, {}),
+        connect: false
       })
     );
-    series1.data.setAll(data);
 
-    let series2 = chart.series.push(
-      am5xy.ColumnSeries.new(root, {
-        name: "Series",
-        xAxis: xAxis,
-        yAxis: yAxis,
-        valueYField: "value2",
-        categoryXField: "category"
-      })
-    );
-    series2.data.setAll(data);
+    series.bullets.push(function () {
+      return am5.Bullet.new(root, {
+        sprite: am5.Circle.new(root, {
+          radius: 5,
+          fill: series.get("fill")
+        })
+      });
+    });
+
+    series.strokes.template.set("strokeWidth", 2);
+
+    series.get("tooltip").label.set("text", "[bold]{name}[/]\n{valueX.formatDate()}: {valueY}")
+    series.data.setAll(currencyRates);
 
     // Add legend
-    let legend = chart.children.push(am5.Legend.new(root, {}));
+    const legend = chart.children.push(am5.Legend.new(root, {}));
     legend.data.setAll(chart.series.values);
 
     // Add cursor
-    chart.set("cursor", am5xy.XYCursor.new(root, {}));
+    chart.set("cursor", am5xy.XYCursor.new(root, {
+      behavior: "zoomXY",
+      xAxis: xAxis
+    }));
+
+    xAxis.set("tooltip", am5.Tooltip.new(root, {
+      themeTags: ["axis"]
+    }));
+
+    yAxis.set("tooltip", am5.Tooltip.new(root, {
+      themeTags: ["axis"]
+    }));
 
     return () => {
-      // componentWillUnmount logic
       if (root) {
         root.dispose();
       }
     }
-  }, []); // empty dependency array ensures the effect runs only once
+  }, []);
+
+  const chartdivStyle = {
+    width: "100%", height: "500px", backgroundColor: '#ffffff'
+  };
 
   return (
-    <div id="chartdiv" style={{ width: "100%", height: "500px" }}></div>
+    <div id="chartdiv" style={chartdivStyle}></div>
   );
 }
 

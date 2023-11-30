@@ -2,7 +2,7 @@ import { css } from '@emotion/react';
 
 export const lightTheme = {
   bg: '#fff',
-  primary: '#ff0072',
+  primary: '#42393d',
 
   nodeColor: '#222',
   nodeBorder: '#222',

@@ -2,7 +2,7 @@ import { Provider } from 'react-redux';
 import { BrowserRouter } from 'react-router-dom';
 import './App.css';
 import createStore from './redux/create-store'
-import PageWrapper from './PageWrapper'
+import PageWrapper from './page-wrapper'
 
 const store = createStore()
 

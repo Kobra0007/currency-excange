@@ -5,7 +5,7 @@ import { themes, getGlobalStyles } from './theme';
 import { Global, ThemeProvider } from '@emotion/react';
 
 import CurrencyPage from './pages/currency-page/currency-page';
-import Main from './pages/main/main';
+import MainPage from './pages/main-page/main';
 import Navbar from './components/navbar';
 
 function NotFound() {
@@ -35,12 +35,12 @@ export default function PageWrapper() {
     <>
       <Global styles={globalStyles} />
       <ThemeProvider theme={baseTheme}>
-        <Navbar toggleTheme={toggleTheme} />
+        <Navbar toggleTheme={toggleTheme} theme={theme} />
 
         <Routes>
           <Route path={NAV.currency(':currencyId')} element={<CurrencyPage />} />
           
-          <Route path={NAV.empty()} element={<Main />} />
+          <Route path={NAV.empty()} element={<MainPage />} />
 
           <Route path="*" element={<NotFound />} />
         </Routes>
