@@ -3,12 +3,12 @@ export const API = {
     getAll: () => `https://api.frankfurter.app/currencies`,
     getLatestExchangeRate: ({ fromId, toId }) =>
       `https://api.frankfurter.app/latest?from=${fromId}&to=${toId}`,
-    getHistoricalExchangeRate: ({ date, fromId, toId }) =>
-      `https://api.frankfurter.app/${date}?from=${fromId}&to=${toId}`,
+    getHistoricalExchangeRate: ({ dateFrom, dateTo = '', fromId, toId }) =>
+      `https://api.frankfurter.app/${dateFrom}..${dateTo}?from=${fromId}&to=${toId}`,
   },
 };
 
 export const NAV = {
-  empty: () => "/",
+  empty: () => '/',
   currency: (currencyId) => `/${currencyId}`,
 };

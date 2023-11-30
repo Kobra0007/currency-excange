@@ -1,8 +1,8 @@
-import { Provider } from 'react-redux'
-import { BrowserRouter } from 'react-router-dom'
-import './App.css'
+import { Provider } from 'react-redux';
+import { BrowserRouter } from 'react-router-dom';
+import './App.css';
 import createStore from './redux/create-store'
-import Main from './pages/main/Main'
+import PageWrapper from './PageWrapper'
 
 const store = createStore()
 
@@ -10,10 +10,10 @@ function App() {
   return (
     <Provider store={store}>
       <BrowserRouter>
-        <Main />
+        <PageWrapper />
       </BrowserRouter>
     </Provider>
-  )
+  );
 }
 
-export default App
+export default App;

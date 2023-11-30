@@ -1,9 +1,9 @@
-import { combineReducers } from 'redux'
+import { combineReducers } from 'redux';
 
-import episode from './episode'
-import show from './show'
+import main from './main';
+import currency from './currency';
 
 export default combineReducers({
-  episode,
-  show,
-})
+  main,
+  currency,
+});

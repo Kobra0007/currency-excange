@@ -1,9 +1,9 @@
-import { fork } from 'redux-saga/effects'
+import { fork } from 'redux-saga/effects';
 
-import episode from './episodeSaga'
-import show from './showSaga'
+import main from './mainSaga';
+import currency from './currencySaga';
 
 export default function* rootSaga() {
-  yield fork(episode)
-  yield fork(show)
+  yield fork(main);
+  yield fork(currency);
 }

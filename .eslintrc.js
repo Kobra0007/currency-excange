@@ -1,0 +1,117 @@
+const eslintConfig = {
+  extends: [],
+  env: {
+    browser: true,
+    es6: true,
+    node: true,
+    jest: true,
+  },
+  parser: '@typescript-eslint/parser',
+  parserOptions: {
+    ecmaVersion: 2019,
+    sourceType: 'module',
+  },
+  plugins: [
+    'babel',
+    'filenames',
+    'import',
+    'jest',
+    'jsx-a11y',
+    'react',
+    'react-hooks',
+    'prettier',
+    '@typescript-eslint',
+  ],
+  rules: {
+  //   'prettier/prettier': [
+  //     'error',
+  //     {
+  //       endOfLine: 'auto',
+  //       trailingComma: 'all',
+  //     },
+  //   ],
+  //   'react-hooks/rules-of-hooks': 'error',
+  //   'react-hooks/exhaustive-deps': 'error',
+  //   'react/prop-types': 'off',
+  //   'react/jsx-curly-brace-presence': 'off',
+  //   '@typescript-eslint/no-unused-vars': [
+  //     'error',
+  //     { vars: 'all', args: 'after-used', ignoreRestSiblings: true },
+  //   ],
+  //   '@typescript-eslint/no-var-requires': 'off',
+  //   '@typescript-eslint/camelcase': 'off',
+  //   '@typescript-eslint/explicit-function-return-type': 'off',
+  //   '@typescript-eslint/ban-ts-ignore': 'off',
+  //   '@typescript-eslint/no-use-before-define': [
+  //     'error',
+  //     {
+  //       functions: false,
+  //       classes: true,
+  //       variables: true,
+  //       allowNamedExports: false,
+  //     },
+  //   ],
+  //   'react/jsx-filename-extension': 'off',
+  //   'react/jsx-props-no-spreading': 'off',
+  //   'react/state-in-constructor': 'off',
+  //   'react/static-property-placement': 'off',
+  //   'react/require-default-props': 'off',
+  //   'no-restricted-exports': 'warn',
+  //   'prefer-regex-literals': 'warn',
+  //   'react/react-in-jsx-scope': 'off',
+  //   'react/jsx-uses-react': 'off',
+  },
+  settings: {
+    react: {
+      version: 'detect',
+    },
+    polyfills: [
+      'Promise',
+      'fetch',
+      'Object.entries',
+      'Object.values',
+      'Object.assign',
+      'Array.from',
+    ],
+  },
+  overrides: [
+    {
+      files: ['*.cy.js', '*.cy.ts', '*.cy.tsx'],
+      globals: {
+        cy: 'readonly',
+      },
+      rules: {
+        'jest/valid-expect': 'off',
+        'jest/valid-expect-in-promise': 'off',
+      },
+    },
+    {
+      files: ['**/*.ts', '**/*.tsx'],
+      rules: {
+        camelcase: 'off',
+        'no-underscore-dangle': 'off',
+        'no-use-before-define': 'off',
+        'lines-between-class-members': 'off',
+        'class-methods-use-this': 'off',
+        'no-shadow': 'off',
+        'no-unused-vars': 'off',
+        'consistent-return': 'off',
+        'no-restricted-syntax': 'off',
+        'no-unused-expressions': 'off',
+        'import/extensions': 'off',
+        'import/no-unresolved': 'off',
+        'import/no-duplicates': 'warn',
+        'import/prefer-default-export': 'off',
+        '@typescript-eslint/no-unused-vars': 'off',
+      },
+    },
+  ],
+  globals: {
+    PRODUCTION: false,
+    PERF: false,
+    LOG: false,
+    SSR: false,
+    cy: false,
+  },
+};
+module.exports = eslintConfig;
